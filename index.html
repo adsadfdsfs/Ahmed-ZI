@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythic Character Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        h1, h2, h3, .fantasy-font {
+            font-family: 'Cinzel', serif;
+        }
+        .medieval-font {
+            font-family: 'MedievalSharp', cursive;
+        }
+        /* Custom scrollbar for fantasy feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b45309;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
+
+        @media print {
+            body {
+                background-color: white !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print {
+                display: none !important;
+            }
+            /* Reset layout for printing */
+            #root > div {
+                background-image: none !important;
+                padding: 0 !important;
+                display: block !important;
+            }
+            #root > div > div {
+                padding: 0 !important;
+                display: block !important;
+            }
+            .print-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 1cm !important;
+                box-shadow: none !important;
+                border: 2px solid #333 !important;
+                background-color: #fffaf0 !important; /* Slight parchment feel for print */
+                color: #111 !important;
+            }
+            .print-container * {
+                color: black !important;
+                border-color: #888 !important;
+            }
+            .print-container .text-amber-500, 
+            .print-container .text-amber-600,
+            .print-container .text-emerald-500 {
+                color: #451a03 !important; /* Deep dark amber for print legibility */
+            }
+            .print-container .bg-slate-900,
+            .print-container .bg-slate-800,
+            .print-container .bg-black\/40 {
+                background-color: #f3f4f6 !important;
+                border-color: #ddd !important;
+            }
+            .print-container .bg-amber-900\/50,
+            .print-container .bg-amber-950\/40 {
+                background-color: #fef3c7 !important;
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Mythic Character Creator",
+  "description": "An immersive Dungeons & Dragons character maker featuring visual customization, auto-generated stats via Gemini AI, and a high-fidelity fantasy UI.",
+  "requestFramePermissions": []
+}
