@@ -5,35 +5,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mythic Character Creator</title>
+    <meta name="theme-color" content="#020617">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3532/3532349.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --parchment: #f4e4bc;
+            --gold: #d4af37;
+            --deep-slate: #0f172a;
+        }
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0f172a;
+            background-color: #020617;
             color: #f1f5f9;
+            overflow-x: hidden;
         }
-        h1, h2, h3, .fantasy-font {
+        h1, h2, h3, h4, .fantasy-font {
             font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
         }
         .medieval-font {
             font-family: 'MedievalSharp', cursive;
         }
+        
         /* Custom scrollbar for fantasy feel */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #020617;
+            border-left: 1px solid #1e293b;
         }
         ::-webkit-scrollbar-thumb {
-            background: #b45309;
-            border-radius: 4px;
+            background: linear-gradient(to bottom, #b45309, #78350f);
+            border-radius: 0px;
+            border: 2px solid #020617;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #d97706;
+        }
+
+        /* Ambient Animations */
+        @keyframes subtle-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(180, 83, 9, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            animation: subtle-glow 10s infinite ease-in-out;
+        }
+
+        .rune-pattern {
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            opacity: 0.4;
+        }
+
+        /* Stat Box Glow */
+        .stat-glow:hover {
+            box-shadow: 0 0 20px rgba(180, 83, 9, 0.2);
+            border-color: #b45309;
         }
 
         @media print {
@@ -46,44 +87,18 @@
             .no-print {
                 display: none !important;
             }
-            /* Reset layout for printing */
             #root > div {
                 background-image: none !important;
                 padding: 0 !important;
-                display: block !important;
-            }
-            #root > div > div {
-                padding: 0 !important;
-                display: block !important;
             }
             .print-container {
                 width: 100% !important;
                 max-width: 100% !important;
                 margin: 0 !important;
-                padding: 1cm !important;
+                padding: 0 !important;
                 box-shadow: none !important;
-                border: 2px solid #333 !important;
-                background-color: #fffaf0 !important; /* Slight parchment feel for print */
-                color: #111 !important;
-            }
-            .print-container * {
-                color: black !important;
-                border-color: #888 !important;
-            }
-            .print-container .text-amber-500, 
-            .print-container .text-amber-600,
-            .print-container .text-emerald-500 {
-                color: #451a03 !important; /* Deep dark amber for print legibility */
-            }
-            .print-container .bg-slate-900,
-            .print-container .bg-slate-800,
-            .print-container .bg-black\/40 {
-                background-color: #f3f4f6 !important;
-                border-color: #ddd !important;
-            }
-            .print-container .bg-amber-900\/50,
-            .print-container .bg-amber-950\/40 {
-                background-color: #fef3c7 !important;
+                border: 1px solid #000 !important;
+                background-color: #fff !important;
             }
         }
     </style>
@@ -99,6 +114,7 @@
 </script>
 </head>
 <body>
+    <div class="glow-overlay"></div>
     <div id="root"></div>
 </body>
 </html>

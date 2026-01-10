@@ -18,6 +18,9 @@ export enum Race {
   TORTLE = 'Tortle',
   GENASI = 'Genasi',
   GITH = 'Gith',
+  ASTRAL_ELF = 'Astral Elf',
+  OWLIN = 'Owlin',
+  HARENGON = 'Harengon',
   HOMEBREW = 'Homebrew'
 }
 
@@ -39,25 +42,18 @@ export enum Class {
   HOMEBREW = 'Homebrew'
 }
 
-export interface HomebrewTraits {
-  avgHeight?: string;
-  ancestors?: string;
-  raceBackstory?: string;
-  speed?: string;
-  size?: string;
-  specialAttacks?: string;
-  resistances?: string;
-  abilities?: string;
-}
-
 export interface Appearance {
   gender: string;
   hairColor: string;
   hairStyle: string;
+  hairTexture: string;
   skinTone: string;
+  skinTexture: string;
   eyeColor: string;
   eyeShape: string;
   build: string;
+  height: string;
+  clothingAesthetic: string;
   features: string[];
   narrative: {
     head: string;
@@ -82,7 +78,86 @@ export interface Weapon {
   properties: string[]; 
 }
 
+export interface MonsterAction {
+  name: string;
+  desc: string;
+  attack_bonus?: number;
+  damage_dice?: string;
+  damage_bonus?: number;
+}
+
+export interface MonsterTemplate {
+  name: string;
+  hp: number;
+  ac: number;
+  stats: Stats;
+  size: string;
+  speed: string;
+  resistances?: string[];
+  vulnerabilities?: string[];
+  immunities?: string[];
+  actions: MonsterAction[];
+  inventory?: string[];
+  gold?: number;
+}
+
+export interface Combatant {
+  id: string;
+  name: string;
+  hp: number;
+  maxHp: number;
+  ac: number;
+  type: 'HERO' | 'ENEMY' | 'NPC' | 'ALLY';
+  imageUrl?: string;
+  x: number; 
+  y: number; 
+  stats: Stats;
+  initiative?: number;
+  size?: string;
+  speed?: string;
+  resistances?: string[];
+  vulnerabilities?: string[];
+  immunities?: string[];
+  actions?: MonsterAction[];
+  inventory?: string[];
+  gold?: number;
+}
+
+export interface LocationData {
+  name: string;
+  mapUrl: string;
+  environmentState: string; 
+}
+
+export interface AdventureSave {
+  id: string;
+  worldId: string;
+  characterId: string;
+  history: string[];
+  currentLocationName: string;
+  combatants: Combatant[];
+  locationCache: Record<string, LocationData>; 
+  lastUpdated: number;
+}
+
+export interface HomebrewTraits {
+  avgHeight: string;
+  ancestors: string;
+  raceBackstory: string;
+  speed: string;
+  size: string;
+  specialAttacks: string;
+  resistances: string;
+  abilities: string;
+}
+
+export interface SpellSlotData {
+  max: number;
+  used: number;
+}
+
 export interface Character {
+  id: string;
   name: string;
   race: Race;
   customRaceName?: string;
@@ -91,10 +166,39 @@ export interface Character {
   appearance: Appearance;
   backstory: string;
   stats: Stats;
+  manualModifiers?: Partial<Record<keyof Stats, number>>;
   weapon: Weapon;
   alignment: string;
   level: number;
+  gold: number;
   homebrewTraits?: HomebrewTraits;
+  inventory: Record<string, string[]>;
+  spellSlots?: Record<number, SpellSlotData>;
 }
 
-export type View = 'LANDING' | 'CREATOR' | 'SHEET' | 'SETTINGS';
+export interface World {
+  id: string;
+  name: string;
+  tags: string[];
+  description: string;
+}
+
+export type RollMode = 'INGAME' | 'IRL';
+export type CalculationMode = 'AI_DESTINY' | 'MANUAL';
+
+export interface AdventureConfig {
+  rollMode: RollMode;
+  calculationMode: CalculationMode;
+  storytellingInstruction: string;
+  showDamageEffects: boolean;
+}
+
+export interface CommunityItem {
+  id: string;
+  type: 'character' | 'world';
+  author: string;
+  data: Character | World;
+  timestamp: number;
+}
+
+export type View = 'LANDING' | 'CREATOR' | 'SHEET' | 'SETTINGS' | 'ADVENTURE' | 'STORY_MAKER' | 'LIBRARY' | 'VAULT';
